@@ -385,7 +385,7 @@
 
         // 从JSON文件加载答案
         async function loadAnswers() {
-            const response = await fetch('answers.json');
+            const response = await fetch('http://treasurenumber4.a6c2.top/answers.json');
             const data = await response.json();
             return data.questions;
         }
@@ -413,7 +413,7 @@
             
             if (userAnswer == correctAnswer) {
                 // 答案正确，跳转到下一页
-                window.location.href = 'diarysecond.html';
+                window.location.href = 'http://treasurenumber4.a6c2.top/diarysecond.html';
             } else {
                 // 答案错误，显示提示
                 alert("答案错误，请重新计算！");
