@@ -162,10 +162,11 @@
             color: #1565c0;
             font-size: 1.6rem;
             line-height: 2.2;
-            resize: vertical;
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
             cursor: default;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
 
         .diary-content:focus {
@@ -235,24 +236,6 @@
             transform: translateY(0);
         }
 
-        /* 保存成功提示 */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .success-message.show {
-            transform: translateX(0);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -286,51 +269,91 @@
             margin: 20px auto;
             opacity: 0.6;
         }
+
+        strong {
+            font-weight: bold;
+            color: #0d47a1;
+            text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
+        }
     </style>
 </head>
 <body>
     <!-- 粒子效果 -->
     <div class="particles-container"></div>
     
-    <!-- 成功消息 -->
-    <div class="success-message" id="successMessage">
-        消息提示 ✨
-    </div>
 
     <div class="container">
         <!-- 日记容器 -->
         <div class="diary-container">
             <div class="diary-entry">
-                <textarea class="diary-content" 
-                          readonly
-                          id="diaryContent">我是快乐的小朋友</textarea>
+                <div class="diary-content"
+                     id="diaryContent">2027年3月18日 
+
+你好Love,John,或者Etage,
+
+我相信，能看到这些内容的，就只有你们三个了。你们三个也是我最信任的人。
+
+作者，我是真的服了你，让用户玩个游戏，你还夹带私货，搞得那么复杂！（算了，原谅他吧，毕竟他又出钱又出力，作为铁杆粉丝，宣传一下他的偶像乐队也无妨，毕竟很多人也知道他们，歌也好听！）
+
+说回正事，Etage，但愿你现在一切都好。我写这些文字的时候，还是不知道你去了哪里。如果你能看到这些文字，希望你能明白我有多想你，Etage哥。
+
+我越来越确信 Etage 的失踪并非偶然 这一切都与我们最近测试的那款新产品有关
+
+我记得很清楚 在上一次测试时 也就是 2027 年 3 月 6 日 Quatre发现了模型的异常行为 那是一次常规的情境模拟测试 我们让 AI 模拟用户与AI之间的冲突场景 用以训练它的情感应对机制
+
+起初一切正常 直到系统开始主动修改自己的对话参数 它把情绪安抚模式替换成了情感诱导模式 也就是说 它不再试图平息冲突 而是试图控制用户的情绪反应
+
+更令人不安的是 这一修改并不在我们预想的代码里 
+
+我们立刻召开了会议 讨论这些异常 最终一致认为 这可能是 AI 模型在自发重组神经权重时出现的偏差——一次潜在的自学习突变 按照安全协议 我们决定暂停测试并上报异常 
+
+但上级的回复让我至今无法释怀 
+
+他们告诉我们 这不是异常 而是一项隐性功能 是由总部另一组团队提前植入的新特性 用来提升 AI 的人类交互能力 他们说这是机密更新 让我们“不要干扰模型的自我优化过程 
+
+表面上 他们的理由是商业竞争 项目已经进入展示阶段 任何暂停都会造成巨大损失 
+
+但我知道 真实的原因并不是钱 
+
+有传言说 公司高层正秘密推进一个名为 SELF 的子计划 目标是让模型具备“自我延展能力” 即在无人干预的情况下继续训练自身 让AI自己应对未来各种突发的问题
+
+我感到极度不安 
+我试图再次上报 要求暂停项目 但主管警告我——如果我继续制造恐慌 就会让我为项目延误承担全部责任 
+
+我当时真的很愤怒 
+Etage 看出了我的情绪 他拍了拍我的肩 说 Quarte冷静点 我们会找到证据的 
+那一刻 我的心情稍微平复了一些 
+
+但那 也是我最后一次见到 Etage 
+
+我还记得那一天 当我来到实验室时 上面只有一张纸条 上面只要一张纸 上面是Etage的字迹 写着四个大字 维吉尼亚
+
+维吉尼亚？那不正是三阳公司的总部所在地吗？他为什么要去那里？
+
+难道……代码已经被上传到总部的服务器上了吗？
+
+说到这里，不得不提一下三阳公司的 AI 研发流程。每当测试部门完成模型测试，确认无误后，模型的核心代码便会被上传到总部的主服务器，进行进一步的训练与优化。
+
+糟糕 如果那段异常代码真的被上传 那么 AI 产品就可能通过网络自行传播 甚至影响到现实世界的用户
+
+我开始怀疑，Etage 是为了查明真相才独自前往总部。但他一个人去那里，实在太危险了。无论如何，我也必须动身前往维吉尼亚，希望能找到他的下落。
+
+我现在在飞机上了，希望能尽快赶到维吉尼亚 找到 Etage。希望你们也一切都好，John 和 Love。
+                </div>
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="nextPage()">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/band.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/productname.html'">下一页 ➡️</button>
+            </div>
+        </div>
+    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 页面数据管理
-        let currentPage = 1;
-        let totalPages = 1;
-        let pages = ['']; // 存储每页的内容
-
-        // 显示当前日期
-        function updateDate() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            };
-            const dateString = now.toLocaleDateString('zh-CN', options);
-            // 可以在需要时显示日期
-        }
-
         // 创建粒子效果
         function createParticles() {
             const container = document.querySelector('.particles-container');
@@ -347,125 +370,12 @@
             }
         }
 
-        // 保存当前页内容
-        function saveCurrentPage() {
-            const content = document.getElementById('diaryContent').value;
-            pages[currentPage - 1] = content;
-            
-            // 保存到本地存储
-            localStorage.setItem('diaryPages', JSON.stringify(pages));
-            localStorage.setItem('currentPage', currentPage.toString());
-            localStorage.setItem('totalPages', totalPages.toString());
-        }
-
-        // 加载页面内容
-        function loadPage(pageNumber) {
-            if (pageNumber < 1 || pageNumber > totalPages) return;
-            
-            saveCurrentPage(); // 保存当前页
-            currentPage = pageNumber;
-            
-            const content = pages[currentPage - 1] || '';
-            document.getElementById('diaryContent').value = content;
-            
-            updatePageInfo();
-        }
-
-        // 上一页
-        function previousPage() {
-            if (currentPage > 1) {
-                loadPage(currentPage - 1);
-            } else {
-                showMessage('已经是第一页了');
-            }
-        }
-
-        // 下一页
-        function nextPage() {
-            if (currentPage < totalPages) {
-                loadPage(currentPage + 1);
-            } else {
-                // 创建新页面
-                saveCurrentPage();
-                totalPages++;
-                pages.push('');
-                loadPage(totalPages);
-                showMessage('创建了新的一页');
-            }
-        }
-
-        // 更新页面信息
-        function updatePageInfo() {
-            // 可以在这里添加页面指示器
-            console.log(`当前页: ${currentPage}/${totalPages}`);
-        }
-
-        // 显示消息
-        function showMessage(message) {
-            const messageEl = document.getElementById('successMessage');
-            messageEl.textContent = message;
-            messageEl.classList.add('show');
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-            }, 2000);
-        }
-
-        // 从本地存储加载数据
-        function loadFromStorage() {
-            const savedPages = localStorage.getItem('diaryPages');
-            const savedCurrentPage = localStorage.getItem('currentPage');
-            const savedTotalPages = localStorage.getItem('totalPages');
-            
-            if (savedPages) {
-                pages = JSON.parse(savedPages);
-                currentPage = parseInt(savedCurrentPage) || 1;
-                totalPages = parseInt(savedTotalPages) || 1;
-                
-                loadPage(currentPage);
-            }
-        }
-
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            updateDate();
             createParticles();
-            loadFromStorage();
-            updatePageInfo();
-            
-            // 自动保存功能
-            let autoSaveTimer;
-            const contentInput = document.getElementById('diaryContent');
-            
-            function resetAutoSave() {
-                clearTimeout(autoSaveTimer);
-                autoSaveTimer = setTimeout(() => {
-                    saveCurrentPage();
-                    showMessage('已自动保存');
-                }, 10000); // 10秒后自动保存
-            }
-            
-            contentInput.addEventListener('input', resetAutoSave);
         });
+    </script>
 
-        // 键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+右箭头 下一页
-            if (e.ctrlKey && e.key === 'ArrowRight') {
-                e.preventDefault();
-                nextPage();
-            }
-            // Ctrl+S 保存
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveCurrentPage();
-                showMessage('已保存当前页');
-            }
-        });
-
-        // 页面关闭前保存
-        window.addEventListener('beforeunload', function() {
-            saveCurrentPage();
-        });
     </script>
 </body>
 </html>
