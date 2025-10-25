@@ -162,10 +162,11 @@
             color: #1565c0;
             font-size: 1.6rem;
             line-height: 2.2;
-            resize: vertical;
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
             cursor: default;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
 
         .diary-content:focus {
@@ -235,9 +236,6 @@
             transform: translateY(0);
         }
 
-        .success-message.show {
-            transform: translateX(0);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -271,47 +269,109 @@
             margin: 20px auto;
             opacity: 0.6;
         }
+
+        strong {
+            font-weight: bold;
+            color: #0d47a1;
+            text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
+        }
+
+        /* 答案输入框样式 */
+        .answer-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .answer-label {
+            display: block;
+            color: #1565c0;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .answer-input {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(33, 150, 243, 0.4);
+            border-radius: 20px;
+            padding: 20px 30px;
+            color: #1565c0;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: rgba(33, 150, 243, 0.8);
+            box-shadow: 0 0 30px rgba(33, 150, 243, 0.4);
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .answer-input::placeholder {
+            color: rgba(21, 101, 192, 0.5);
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
     <!-- 粒子效果 -->
     <div class="particles-container"></div>
+    
 
     <div class="container">
         <!-- 日记容器 -->
         <div class="diary-container">
             <div class="diary-entry">
-                <textarea class="diary-content" 
-                          readonly
-                          id="diaryContent">我是快乐的小朋友</textarea>
+                <div class="diary-content"
+                     id="diaryContent">2025年3月18日
+
+我突然改变主意了。
+昨天我写的那个谜题——本以为只有他们能解开。可今天仔细想想，也许任何一个聪明的人都有机会，只要是学过python3的人，都有机会。那让我有点不安。毕竟，这不该是一个“谁都能解”的游戏。
+
+所以，我决定再加一道谜题。
+一道只有<strong>你们</strong>能解的谜题。
+不是因为你们最聪明，而是因为这个谜题藏着我们之间独有的记忆。
+话说我们都最喜欢哪个拉斯维加斯的乐队来着？
+
+给点提示
+我愿意化成一只鸟
+飞向阿姆斯特丹
+我很抱歉
+我愿意为你补偿
+
+这是你之前写过的一首诗
+
+乐队的名字就是答案
+
+请输入答案，然后点击下一页以确认答案正确与否。
+
+<div class="answer-section">
+                <label for="answerInput" class="answer-label">请输入答案（都是小写英文字母）：</label>
+                <input type="text" id="answerInput" class="answer-input" maxlength="4" placeholder="">
+</div>
+                </div>
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="window.location.href='diarysecond.html'">⬅️ 上一页</button>
-                <button class="btn" onclick="window.location.href='diaryfourth.html'">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/diarysecond.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="window.location.href='checkAnswer()'">下一页 ➡️</button>
+            </div>
+        </div>
+    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 页面数据管理
-        let currentPage = 1;
-        let totalPages = 1;
-        let pages = ['']; // 存储每页的内容
-
-        // 显示当前日期
-        function updateDate() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            };
-            const dateString = now.toLocaleDateString('zh-CN', options);
-            // 可以在需要时显示日期
-        }
-
         // 创建粒子效果
         function createParticles() {
             const container = document.querySelector('.particles-container');
@@ -328,107 +388,44 @@
             }
         }
 
-        // 保存当前页内容
-        function saveCurrentPage() {
-            const content = document.getElementById('diaryContent').value;
-            pages[currentPage - 1] = content;
-            
-            // 保存到本地存储
-            localStorage.setItem('diaryPages', JSON.stringify(pages));
-            localStorage.setItem('currentPage', currentPage.toString());
-            localStorage.setItem('totalPages', totalPages.toString());
-        }
-
-        // 加载页面内容
-        function loadPage(pageNumber) {
-            if (pageNumber < 1 || pageNumber > totalPages) return;
-            
-            saveCurrentPage(); // 保存当前页
-            currentPage = pageNumber;
-            
-            const content = pages[currentPage - 1] || '';
-            document.getElementById('diaryContent').value = content;
-            
-            updatePageInfo();
-        }
-
-        // 更新页面信息
-        function updatePageInfo() {
-            // 可以在这里添加页面指示器
-            console.log(`当前页: ${currentPage}/${totalPages}`);
-        }
-
-        // 显示消息
-        function showMessage(message) {
-            const messageEl = document.getElementById('successMessage');
-            messageEl.textContent = message;
-            messageEl.classList.add('show');
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-            }, 2000);
-        }
-
-        // 从本地存储加载数据
-        function loadFromStorage() {
-            const savedPages = localStorage.getItem('diaryPages');
-            const savedCurrentPage = localStorage.getItem('currentPage');
-            const savedTotalPages = localStorage.getItem('totalPages');
-            
-            if (savedPages) {
-                pages = JSON.parse(savedPages);
-                currentPage = parseInt(savedCurrentPage) || 1;
-                totalPages = parseInt(savedTotalPages) || 1;
-                
-                loadPage(currentPage);
-            }
-        }
-
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            updateDate();
             createParticles();
-            loadFromStorage();
-            updatePageInfo();
-            
-            // 自动保存功能
-            let autoSaveTimer;
-            const contentInput = document.getElementById('diaryContent');
-            
-            function resetAutoSave() {
-                clearTimeout(autoSaveTimer);
-                autoSaveTimer = setTimeout(() => {
-                    saveCurrentPage();
-                    showMessage('已自动保存');
-                }, 10000); // 10秒后自动保存
-            }
-            
-            contentInput.addEventListener('input', resetAutoSave);
         });
 
-        // 键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+左箭头 上一页
-            if (e.ctrlKey && e.key === 'ArrowLeft') {
-                e.preventDefault();
-                previousPage();
-            }
-            // Ctrl+右箭头 下一页
-            if (e.ctrlKey && e.key === 'ArrowRight') {
-                e.preventDefault();
-                nextPage();
-            }
-            // Ctrl+S 保存
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveCurrentPage();
-                showMessage('已保存当前页');
-            }
-        });
+        // 从JSON文件加载答案
+        async function loadAnswers() {
+            const response = await fetch('http://treasurenumber4.a6c2.top/answers.json');
+            const data = await response.json();
+            return data.questions;
+        }
 
-        // 页面关闭前保存
-        window.addEventListener('beforeunload', function() {
-            saveCurrentPage();
-        });
+        // 答案验证函数
+        async function checkAnswer() {
+            const answerInput = document.getElementById('answerInput');
+            const userAnswer = answerInput.value.trim();
+            
+            // 从JSON文件加载正确答案
+            const questions = await loadAnswers();
+            const correctAnswer = questions.page2.answer;
+            
+            if (userAnswer === "") {
+                alert("请输入答案后再点击下一页！");
+                answerInput.focus();
+                return;
+            }
+            
+            if (userAnswer == correctAnswer) {
+                // 答案正确，跳转到下一页
+                window.location.href = 'http://treasurenumber4.a6c2.top/diaryfifth.html';
+            } else {
+                // 答案错误，显示提示
+                alert("答案错误，请重新填写！");
+                answerInput.value = "";
+                answerInput.focus();
+            }
+        }
     </script>
+
 </body>
 </html>
