@@ -292,7 +292,7 @@
         }
 
         .answer-input {
-            width: 300px;
+            width: 600px;
             background: rgba(255, 255, 255, 0.3);
             border: 3px solid rgba(33, 150, 243, 0.4);
             border-radius: 20px;
@@ -354,15 +354,15 @@
 请输入答案，然后点击下一页以确认答案正确与否。
 
 <div class="answer-section">
-                <label for="answerInput" class="answer-label">请输入答案（都是小写英文字母）：</label>
-                <input type="text" id="answerInput" class="answer-input" maxlength="4" placeholder="">
+                <label for="answerInput" class="answer-label">请输入答案（都是小写英文字母,没有空格）：</label>
+                <input type="text" id="answerInput" class="answer-input" placeholder="">
 </div>
                 </div>
             </div>
 
             <div class="btn-container">
                 <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/diarysecond.html'">⬅️ 上一页</button>
-                <button class="btn" onclick="window.location.href='checkAnswer()'">下一页 ➡️</button>
+                <button class="btn" onclick="'checkAnswer()'">下一页 ➡️</button>
             </div>
         </div>
     </div>
