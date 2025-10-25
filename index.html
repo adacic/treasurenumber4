@@ -307,7 +307,7 @@
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="nextPage()">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='diaryfirst.html'">下一页 ➡️</button>
             </div>
         </div>
     </div>
@@ -369,29 +369,6 @@
             document.getElementById('diaryContent').value = content;
             
             updatePageInfo();
-        }
-
-        // 上一页
-        function previousPage() {
-            if (currentPage > 1) {
-                loadPage(currentPage - 1);
-            } else {
-                showMessage('已经是第一页了');
-            }
-        }
-
-        // 下一页
-        function nextPage() {
-            if (currentPage < totalPages) {
-                loadPage(currentPage + 1);
-            } else {
-                // 创建新页面
-                saveCurrentPage();
-                totalPages++;
-                pages.push('');
-                loadPage(totalPages);
-                showMessage('创建了新的一页');
-            }
         }
 
         // 更新页面信息
