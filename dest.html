@@ -162,10 +162,11 @@
             color: #1565c0;
             font-size: 1.6rem;
             line-height: 2.2;
-            resize: vertical;
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
             cursor: default;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
 
         .diary-content:focus {
@@ -235,24 +236,6 @@
             transform: translateY(0);
         }
 
-        /* 保存成功提示 */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .success-message.show {
-            transform: translateX(0);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -286,51 +269,54 @@
             margin: 20px auto;
             opacity: 0.6;
         }
+
+        strong {
+            font-weight: bold;
+            color: #0d47a1;
+            text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
+        }
     </style>
 </head>
 <body>
     <!-- 粒子效果 -->
     <div class="particles-container"></div>
     
-    <!-- 成功消息 -->
-    <div class="success-message" id="successMessage">
-        消息提示 ✨
-    </div>
 
     <div class="container">
         <!-- 日记容器 -->
         <div class="diary-container">
             <div class="diary-entry">
-                <textarea class="diary-content" 
-                          readonly
-                          id="diaryContent">我是快乐的小朋友</textarea>
+                <div class="diary-content"
+                     id="diaryContent">我飞速地解出了这个谜题，答案是所有元素的相对原子质量的整数所组成的数字串：511277320186。
+
+这串答案并没有给来什么注意点，反而是这几个元素拼成的单词让我大吃一惊， Vigenere(维吉尼亚)！
+                     
+维吉尼亚？那不正是三阳公司的总部所在地吗？他为什么要去那里？
+
+难道……代码已经被上传到总部的服务器上了吗？
+
+说到这里，不得不提一下三阳公司的 AI 研发流程。每当测试部门完成模型测试，确认无误后，模型的核心代码便会被上传到总部的主服务器，进行进一步的训练与优化。
+
+糟糕  如果那段异常代码真的被上传  那么 AI 产品就可能通过网络自行传播  甚至影响到现实世界的用户
+
+我开始怀疑，Etage 是为了查明真相才独自前往总部。但他一个人去那里，实在太危险了。无论如何，我也必须动身前往维吉尼亚，希望能找到他的下落。
+
+我现在在飞机上了，希望能尽快赶到维吉尼亚 找到 Etage。希望你们也一切都好，John 和 Love。
+                </div>
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="nextPage()">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/missing.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/productname.html'">下一页 ➡️</button>
+            </div>
+        </div>
+    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 页面数据管理
-        let currentPage = 1;
-        let totalPages = 1;
-        let pages = ['']; // 存储每页的内容
-
-        // 显示当前日期
-        function updateDate() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            };
-            const dateString = now.toLocaleDateString('zh-CN', options);
-            // 可以在需要时显示日期
-        }
-
         // 创建粒子效果
         function createParticles() {
             const container = document.querySelector('.particles-container');
@@ -347,125 +333,12 @@
             }
         }
 
-        // 保存当前页内容
-        function saveCurrentPage() {
-            const content = document.getElementById('diaryContent').value;
-            pages[currentPage - 1] = content;
-            
-            // 保存到本地存储
-            localStorage.setItem('diaryPages', JSON.stringify(pages));
-            localStorage.setItem('currentPage', currentPage.toString());
-            localStorage.setItem('totalPages', totalPages.toString());
-        }
-
-        // 加载页面内容
-        function loadPage(pageNumber) {
-            if (pageNumber < 1 || pageNumber > totalPages) return;
-            
-            saveCurrentPage(); // 保存当前页
-            currentPage = pageNumber;
-            
-            const content = pages[currentPage - 1] || '';
-            document.getElementById('diaryContent').value = content;
-            
-            updatePageInfo();
-        }
-
-        // 上一页
-        function previousPage() {
-            if (currentPage > 1) {
-                loadPage(currentPage - 1);
-            } else {
-                showMessage('已经是第一页了');
-            }
-        }
-
-        // 下一页
-        function nextPage() {
-            if (currentPage < totalPages) {
-                loadPage(currentPage + 1);
-            } else {
-                // 创建新页面
-                saveCurrentPage();
-                totalPages++;
-                pages.push('');
-                loadPage(totalPages);
-                showMessage('创建了新的一页');
-            }
-        }
-
-        // 更新页面信息
-        function updatePageInfo() {
-            // 可以在这里添加页面指示器
-            console.log(`当前页: ${currentPage}/${totalPages}`);
-        }
-
-        // 显示消息
-        function showMessage(message) {
-            const messageEl = document.getElementById('successMessage');
-            messageEl.textContent = message;
-            messageEl.classList.add('show');
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-            }, 2000);
-        }
-
-        // 从本地存储加载数据
-        function loadFromStorage() {
-            const savedPages = localStorage.getItem('diaryPages');
-            const savedCurrentPage = localStorage.getItem('currentPage');
-            const savedTotalPages = localStorage.getItem('totalPages');
-            
-            if (savedPages) {
-                pages = JSON.parse(savedPages);
-                currentPage = parseInt(savedCurrentPage) || 1;
-                totalPages = parseInt(savedTotalPages) || 1;
-                
-                loadPage(currentPage);
-            }
-        }
-
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            updateDate();
             createParticles();
-            loadFromStorage();
-            updatePageInfo();
-            
-            // 自动保存功能
-            let autoSaveTimer;
-            const contentInput = document.getElementById('diaryContent');
-            
-            function resetAutoSave() {
-                clearTimeout(autoSaveTimer);
-                autoSaveTimer = setTimeout(() => {
-                    saveCurrentPage();
-                    showMessage('已自动保存');
-                }, 10000); // 10秒后自动保存
-            }
-            
-            contentInput.addEventListener('input', resetAutoSave);
         });
+    </script>
 
-        // 键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+右箭头 下一页
-            if (e.ctrlKey && e.key === 'ArrowRight') {
-                e.preventDefault();
-                nextPage();
-            }
-            // Ctrl+S 保存
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveCurrentPage();
-                showMessage('已保存当前页');
-            }
-        });
-
-        // 页面关闭前保存
-        window.addEventListener('beforeunload', function() {
-            saveCurrentPage();
-        });
     </script>
 </body>
 </html>

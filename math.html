@@ -332,20 +332,20 @@
             <div class="diary-entry">
                 <div class="diary-content"
                      id="diaryContent">2027年3月16日
-我最近遇到了一些危险
+我最近遇到了一些危险！
 
-我的幸运数字是3 只要做的事和3沾边 就能有好运 但愿可以避开一些危险。
+我的幸运数字是3  只要做的事和3沾边  就能有好运  但愿可以避开一些危险
 
-比如我今天看了3个电影 《布莱恩的一生》 《亚瑟王》 《人生的意义》 这三部电影都很不错 在下超级喜欢
+比如我今天看了3个电影  《布莱恩的一生》  《亚瑟王》  《人生的意义》  这三部电影都很不错  在下超级喜欢
 
 
-想看这本日记，就要先解开我的一道谜题，先来几道简单的加减乘除运算吧
+想看这本日记，就要先解开我的一道谜题，先来几道简单的加减乘除运算吧：
             1.0.2+0.4=? 
             2. 0.3-0.2=? 
             3.0.1*3=? 
             4.0.3/0.1=? 
                      
-答案四位数字，每一位数字是答案的最后一个数， 假设例如7是0.7的最后一个数字， 则这一位答案为7。
+答案四位数字，每一位数字是每道题答案的最后一个数， 假设例如7是0.7的最后一个数字， 则这一位答案为7。答案按照题号正序，从左往右组成四位数字。
 
 请输入答案，然后点击下一页以确认答案正确与否。
 <!-- 答案输入框 -->
@@ -385,7 +385,7 @@
 
         // 从JSON文件加载答案
         async function loadAnswers() {
-            const response = await fetch('http://treasurenumber4.a6c2.top/answers.json');
+            const response = await fetch('https://treasurenumber4.a6c2.top/answers.json');
             const data = await response.json();
             return data.questions;
         }
@@ -413,7 +413,7 @@
             
             if (userAnswer == correctAnswer) {
                 // 答案正确，跳转到下一页
-                window.location.href = 'http://treasurenumber4.a6c2.top/introduction.html';
+                window.location.href = 'https://treasurenumber4.a6c2.top/introduction.html';
             } else {
                 // 答案错误，显示提示
                 alert("答案错误，请重新计算！");

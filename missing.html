@@ -275,6 +275,50 @@
             color: #0d47a1;
             text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
         }
+
+        /* 答案输入框样式 */
+        .answer-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .answer-label {
+            display: block;
+            color: #1565c0;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .answer-input {
+            width: 500px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(33, 150, 243, 0.4);
+            border-radius: 20px;
+            padding: 20px 30px;
+            color: #1565c0;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: rgba(33, 150, 243, 0.8);
+            box-shadow: 0 0 30px rgba(33, 150, 243, 0.4);
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .answer-input::placeholder {
+            color: rgba(21, 101, 192, 0.5);
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -303,48 +347,52 @@
 
 起初一切正常 直到系统开始主动修改自己的对话参数 它把情绪安抚模式替换成了情感诱导模式 也就是说 它不再试图平息冲突 而是试图控制用户的情绪反应
 
-更令人不安的是 这一修改并不在我们预想的代码里 
+更令人不安的是  这一修改并不在我们预想的代码里 
 
-我们立刻召开了会议 讨论这些异常 最终一致认为 这可能是 AI 模型在自发重组神经权重时出现的偏差——一次潜在的自学习突变 按照安全协议 我们决定暂停测试并上报异常 
+我们立刻召开了会议  讨论这些异常  最终一致认为  这可能是 AI 模型在自发重组神经权重时出现的偏差  一次潜在的自学习突变   按照安全协议   我们决定暂停测试并上报异常 
 
 但上级的回复让我至今无法释怀 
 
-他们告诉我们 这不是异常 而是一项隐性功能 是由总部另一组团队提前植入的新特性 用来提升 AI 的人类交互能力 他们说这是机密更新 让我们“不要干扰模型的自我优化过程 
+他们告诉我们  这不是异常  而是一项隐性功能  是由总部另一组团队提前植入的新特性  用来提升 AI 的人类交互能力  他们说这是机密更新  让我们“不要干扰模型的自我优化过程 
 
-表面上 他们的理由是商业竞争 项目已经进入展示阶段 任何暂停都会造成巨大损失 
+表面上  他们的理由是商业竞争  项目已经进入展示阶段  任何暂停都会造成巨大损失 
 
-但我知道 真实的原因并不是钱 
+但我知道  真实的原因并不是钱 
 
-有传言说 公司高层正秘密推进一个名为 SELF 的子计划 目标是让模型具备“自我延展能力” 即在无人干预的情况下继续训练自身 让AI自己应对未来各种突发的问题
+有传言说  公司高层正秘密推进一个名为 SELF 的子计划  目标是让模型具备“自我延展能力”  即在无人干预的情况下继续训练自身  让AI自己应对未来各种突发的问题
 
 我感到极度不安 
-我试图再次上报 要求暂停项目 但主管警告我——如果我继续制造恐慌 就会让我为项目延误承担全部责任 
+我试图再次上报  要求暂停项目  但主管警告我——如果我继续制造恐慌  就会让我为项目延误承担全部责任 
 
 我当时真的很愤怒 
-Etage 看出了我的情绪 他拍了拍我的肩 说 Quarte冷静点 我们会找到证据的 
-那一刻 我的心情稍微平复了一些 
+Etage  看出了我的情绪  他拍了拍我的肩  说  Quarte冷静点  我们会找到证据的 
+那一刻  我的心情稍微平复了一些 
 
-但那 也是我最后一次见到 Etage 
+但那  也是我最后一次见到  Etage 那天我记得 3月15日
 
-我还记得那一天 当我来到实验室时 上面只有一张纸条 上面只要一张纸 上面是Etage的字迹 写着四个大字 维吉尼亚
+我还记得那一天  当我来到实验室时  上面只有一张纸条  上面只要一张纸  上面是Etage的字迹  写着八个数字  86 73 71 101 78 101 82 101
 
-维吉尼亚？那不正是三阳公司的总部所在地吗？他为什么要去那里？
+这八个数字是什么意思？我立马就猜到了，Etage是学习化学的，这一串数字一定与化学元素有关。
 
-难道……代码已经被上传到总部的服务器上了吗？
+怎么说呢，之前和Etage一起玩猜谜游戏的时候，想起来我和当时女朋友（现在是妻子）的一段经历，那时候她特别喜欢一个游戏，怎么说呢，好像叫摩尔花园，她感觉里面的每一个人物都好可爱，
+她最想做的就是称每一个人物的体重，并取整数，然后分别按顺序写下来
 
-说到这里，不得不提一下三阳公司的 AI 研发流程。每当测试部门完成模型测试，确认无误后，模型的核心代码便会被上传到总部的主服务器，进行进一步的训练与优化。
+当时和Etage玩猜谜游戏的时候，怎么说呢，我就想起了这件事，然后我就给Etage出了一个这样的谜题，今天他给我也展示了这个谜题，我瞬间秒懂。
 
-糟糕 如果那段异常代码真的被上传 那么 AI 产品就可能通过网络自行传播 甚至影响到现实世界的用户
+于是，我飞快地解开了这个谜题：
 
-我开始怀疑，Etage 是为了查明真相才独自前往总部。但他一个人去那里，实在太危险了。无论如何，我也必须动身前往维吉尼亚，希望能找到他的下落。
+谜题的答案是多少：
 
-我现在在飞机上了，希望能尽快赶到维吉尼亚 找到 Etage。希望你们也一切都好，John 和 Love。
+            <div class="answer-section">
+                <label for="answerInput" class="answer-label">请输入答案（没有空格，全是数字）：</label>
+                <input type="text" id="answerInput" class="answer-input" placeholder="输入答案">
+            </div>
                 </div>
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/band.html'">⬅️ 上一页</button>
-                <button class="btn" onclick="window.location.href='http://treasurenumber4.a6c2.top/productname.html'">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/band.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="checkAnswer()">下一页 ➡️</button>
             </div>
         </div>
     </div>
@@ -374,8 +422,39 @@ Etage 看出了我的情绪 他拍了拍我的肩 说 Quarte冷静点 我们会�
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
         });
+        // 从JSON文件加载答案
+        async function loadAnswers() {
+            const response = await fetch('https://treasurenumber4.a6c2.top/answers.json');
+            const data = await response.json();
+            return data.questions;
+        }
+
+        // 答案验证函数
+        async function checkAnswer() {
+            const answerInput = document.getElementById('answerInput');
+            const userAnswer = answerInput.value.trim();
+            
+            // 从JSON文件加载正确答案
+            const questions = await loadAnswers();
+            const correctAnswer = questions.page4.answer;
+            
+            if (userAnswer === "") {
+                alert("请输入答案后再点击下一页！");
+                answerInput.focus();
+                return;
+            }
+            
+            if (userAnswer == correctAnswer) {
+                // 答案正确，跳转到下一页
+                window.location.href = 'https://treasurenumber4.a6c2.top/dest.html';
+            } else {
+                // 答案错误，显示提示
+                alert("答案错误，请重新计算！");
+                answerInput.value = "";
+                answerInput.focus();
+            }
+        }
     </script>
 
-    </script>
 </body>
 </html>
