@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的日记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #fff3e0 50%, #f0f4c3 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 科技感动态背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(129, 212, 250, 0.2) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(33, 150, 243, 0.05), rgba(255, 193, 7, 0.05));
+            animation: backgroundShift 15s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes backgroundShift {
+            0% { transform: translateX(-50px) translateY(-30px) scale(1); }
+            100% { transform: translateX(50px) translateY(30px) scale(1.1); }
+        }
+
+        /* 粒子效果 */
+        .particle {
+            position: fixed;
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 头部标题 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1565c0;
+            text-shadow: 0 0 15px rgba(21, 101, 192, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 15px rgba(21, 101, 192, 0.3); }
+            to { text-shadow: 0 0 25px rgba(21, 101, 192, 0.6), 0 0 35px rgba(255, 193, 7, 0.3); }
+        }
+
+        .header .date {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* 日记本容器 */
+        .diary-container {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(33, 150, 243, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(21, 101, 192, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diary-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.6), rgba(255, 193, 7, 0.6), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* 日记输入区域 */
+        .diary-entry {
+            margin-bottom: 30px;
+        }
+
+        .diary-title {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: #1565c0;
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .diary-title:focus {
+            outline: none;
+            border-color: rgba(33, 150, 243, 0.6);
+            box-shadow: 0 0 20px rgba(33, 150, 243, 0.2);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .diary-title::placeholder {
+            color: rgba(21, 101, 192, 0.6);
+        }
+
+        .diary-content {
+            width: 100%;
+            min-height: 700px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 15px;
+            padding: 50px;
+            color: #1565c0;
+            font-size: 1.6rem;
+            line-height: 2.2;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            cursor: default;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .diary-content:focus {
+            outline: none;
+            border-color: rgba(33, 150, 243, 0.6);
+            box-shadow: 0 0 25px rgba(33, 150, 243, 0.2);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .diary-content[readonly] {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: default;
+            user-select: text;
+        }
+
+        .diary-content[readonly]:focus {
+            border-color: rgba(33, 150, 243, 0.4);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.1);
+        }
+
+        /* 按钮样式 */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, rgba(33, 150, 243, 0.2), rgba(255, 193, 7, 0.2));
+            color: #1565c0;
+            border: 1px solid rgba(33, 150, 243, 0.4);
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.2);
+            border-color: rgba(33, 150, 243, 0.7);
+            background: linear-gradient(45deg, rgba(33, 150, 243, 0.3), rgba(255, 193, 7, 0.3));
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .diary-container {
+                padding: 20px;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+            }
+        }
+
+        /* 装饰线条 */
+        .decorative-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.6), transparent);
+            margin: 20px auto;
+            opacity: 0.6;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #0d47a1;
+            text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子效果 -->
+    <div class="particles-container"></div>
+    
+
+    <div class="container">
+        <!-- 日记容器 -->
+        <div class="diary-container">
+            <div class="diary-entry">
+                <div class="diary-content"
+                     id="diaryContent">2027年3月17日
+
+看守我的安保人员回来了。但我的大脑还在努力高速旋转，试图弄清楚发生了什么事。
+
+叛徒？我们居然出现了叛徒！
+
+这件测试出现异常的事情只有我和Niveau知道，但现在看来，肯定还有第三个人知道这个秘密。
+
+按理来说，Niveau不辞而别这个信息，应该没有我们四个之外的人知道。如果Niveau没有告诉其他人的话，那么这个叛徒只能是我们四个人中的一个。
+
+如果Niveau是叛徒，他应该不会告诉我有叛徒这件事情，因为这样会暴露他自己；除非，他是想演戏，想让我把叛徒的视线转移到别人的身上。但Niveau从来不是这种人，他做事十分讲信用，更不会为了挑拨我们四人离间，冒这么大的风险去演戏，更何况我不一定会相信他所说的。
+
+那么叛徒只有可能是John或者是Love了。
+
+想到这里，我的心一下子沉到了谷底。John和Love都是我非常信任的朋友，我从来没有怀疑过他们。但现在看来，他们之中一定有一个人是叛徒。正是叛徒泄露了Niveau去修改服务器的秘密，导致Niveau被捕。
+
+突然，门开了，另一个安保人员走了进来，告诉看守我的安保人员，说我需要去一趟总裁的办公室，他来负责押送。然而，看守我的安保人员说，我没有接收到相关的指令，他不能让我离开。另一个安保人员见状，拿出了手机，递给了看守我的安保人员，当他接过手机时，新来的那位安保人员立刻往他胸口上来了一圈，再加一个肘击，最后一个漂亮的过肩摔，KO了看守我的安保人员。
+
+直到这时，我才认出来，原来这个安保人员正是Niveau！
+
+Niveau立刻拿走了那位倒在地上的安保人员的枪，递给了我。我和他说，我不会开枪。见此，Niveau只好一人拿了两把枪，带我逃离了这间房间。
+
+他说，我们先走楼梯到8楼，到了8楼的男厕所，我会拿提前藏好的绳子，我们一起顺着绳子下去！（我当时咯噔一下，心想：这件事情之后我要不要考虑去做武行。）
+
+他开始押着我，前往楼梯间，可是没走几步，就响起了警报声。一时间，整个大楼都陷入了混乱，正在工作的员工开始离开自己的座位，有些前往楼梯，有些在警卫的护送下，坐了电梯下楼。Niveau说，看来被我KO在12楼杂物间的两个警卫还是被发现了，我们得加快速度。
+
+我们混入了人群之中，前往楼梯间，争取最快速度到达8楼，突然，到了10楼楼梯口时，我们看见四五个警卫在把守9到10楼的楼梯之间的通道，显然，他们已经察觉到了我们要走楼梯逃脱。
+
+没办法，我们只好进入10楼，在10楼的走廊上寻找其他的逃生路线。虽然没有找到别的路线，但是我们发现了一个可以从里面锁上的杂物间。Niveau说，我们进去躲一会儿，等警卫们离开后再走。我同意了。
+
+我们进入了杂物间，Niveau立刻把门锁上。他对我说，警卫应该一时半会走不了，我相信你对我还有很多疑问吧，我会解答你的。说完，他从怀里掏出了一包东西，递给了我。我打开一看，是我刚才被拿走的随身物品。Niveau说，“这是我从被打晕的警卫那里拿来的。”
+
+Niveau接着说， “是的，Ekim说的全部是事实。我在入职三阳公司之前，确实是一个职业盗贼。所谓的化学本科经历，也都是我伪造的。我从小就生活在贫民区，家里穷得叮当响，没有钱供我读书。因为贫民区平均文化认知较低，这里的人们尔虞我诈，偷盗行骗司空见惯。我从小就学会了如何偷东西，如何躲避警察的追捕，如何攀爬以及如何在格斗中取胜。为了生存，我不得不加入盗贼的团伙，走上了盗贼的道路。后来，我渐渐地成了一名职业盗贼，专门盗窃有钱人的财产，以及公司的机密，就比如我十五年前偷窃三阳的那次。然而，没有接受过教育这件事，始终成为我的一个遗憾。所以每当我得到钱的时候，我都会去买一些书籍，渐渐地我迷上了数学，化学和计算机。后面因为我的化学知识丰富，经熟人介绍，一家盗贼团伙找上了我，让我负责建筑爆破。然而再后来的一次行动中，介绍我入伙的那个朋友被我的同伙出卖，被做成了警方的诱饵。顿时，我的心中充满了不安，会不会有一天我也会被同伙出卖。终于有一天，我偷偷听到了他们准备在下次行动中让我做诱饵的计划。于是我将计就计，并没有配合他们，反而让他们被警方抓获。 这件事之后，我认为是老天在给我一个机会，于是我决定补偿这个社会，改邪归正，将我过去从这个社会所取的东西，我以其他方式补偿回来。我伪造了一份简历，并用我丰富的计算机和数学知识来顺利入职三阳公司。入职后，便进入了我们这个部门，虽然你们都比我小，但是你们也是让我第一次感受到友谊的温暖。”
+
+“我之所以不辞而别，是因为我从我之前老行的线人身上得知，三阳公司高层正秘密推进一个名为 SELF 的子计划  目标是让模型具备“自我延展能力”  即在无人干预的情况下继续训练自身  让AI自己生成“自我意识”   以应对未来各种突发的问题   三阳公司最终的目的是  为了以后更好的控制民众情绪  让民众永远做出对于公司有利的选择  这听起来很疯狂  但我相信  这正是他们的野心所在  与此同时  我们上周测试的代码  已经被上传至服务器   我估计后天之前  他们就会把这个代码部署到所有的AI模型中去  一旦这样  我们就再也无法阻止三阳公司  实现他们的野心了  所以我决定  必须在代码被部署之前  设法毁掉Shakespeare  即使冒着生命危险也在所不惜
+
+“但是，我一个人终究力量有限，我害怕我遭遇不测，好让接下来的人帮我继续完成这个任务。虽然我不愿意让你们参与进这么危险的事情，但是，事关人类存亡，我信任的人只有你们了，但如果只能选你们三个其中之一，我更希望是你来帮助我，因为比起John和Love,你更有对这个社会的责任感，这就是为什么我留给你了这张纸条。15号那天晚上，本来事情进展的十分顺利，我准备用我的特制溶液毁掉服务器的逻辑芯片，就通过11层与15层的楼梯通道离开。但是应该我们组里出现了叛徒，泄露了我的行踪，当我刚打开服务器内部去寻找芯片的时候，服务器室突然冲进了大量警卫，导致我的行动失败。 不过我相信这个叛徒绝对不是你。接下来的事情，就要靠我们两个了。”
+
+突然，一阵敲门声打断了Niveau的话语。Niveau立刻停止了说话，然后传来一阵钥匙开门的声音。映入眼帘的是两个警卫，他们显然是来搜查杂物间的。警卫看到我们后，立刻向我们开枪，还好屋内光线较暗，警卫描边枪法并没有击中我们。 Niveau立刻开枪反击，两声枪响过后，两个警卫倒在了地上。
+
+这也意味着，我们必须马上离开这里了！
+
+Niveau说， “我们必须马上离开这里，去8楼的男厕所拿绳子，然后顺着绳子下去逃生！” 我们前往10楼唯一的楼梯口，但是，楼梯口被几个警卫把守着，他们显然已经顺着枪声发现了我们的行踪。
+
+我们快速逃离，那几个警卫追了上来。Niveau说， “你先往前跑，这边有五把枪，怎么也可以挡住他们，我来掩护你！” 说完，他便开始向追来的警卫开枪。
+
+“快走！”我大喊，心中充满了不安。
+
+Niveau没有理会我，他给了我一个工作证和一张纸条，然后让我去离10楼楼梯口最近的一个房间的桌子下躲藏，那里隐蔽的同时，还可以看见警卫们的动向。我照做了。
+
+Niveau离开了我的视线，我在桌子下只能通过声音判断外面的情况。
+
+我发现越来越多的警卫顺着枪声赶来了，我看到Niveau来到了我的视线之内，正在和几名警卫秦王绕柱般交火。我看到Niveau虽然掩护得很好，但是警卫们前后夹击，Niveau渐渐地被包围了起来，身上好像有一处枪伤。
+
+后来，他又离开了我的视线，这是我最后一次看到他。因为过了一段时间，我听到了几把枪同时开火的声音，然后便什么声音都没有了，听起来像是‘处决’。
+
+广播响起， “入侵者已击毙一名，其他入侵者正在搜捕中，请所有员工注意人身安全，听从警卫指挥，有序撤离。”
+
+过了一段时间，再也没有警卫经过楼梯口，我趁机逃离了10楼，跑到了8楼的男厕所，拿到了Niveau藏好的绳子，然后拿着绳子，一头绑在窗户的锁上，一头顺着窗户下去。
+
+我的手紧紧地抓住绳子，即使手掌就像是被火烧一样疼痛，我也没有松开。我顺着绳子慢慢地下去，我没有心思再查看我手上的伤势了，我的大脑嗡嗡地响着，从今天起，Niveau哥不在了。
+
+我突然感觉我是一个废物，我太过于弱小，太过于无能，竟然连保护朋友的能力都没有。
+
+我长大了，以为我变了，变得性格强大了，但是事实证明，即使我做了组长，负起了整个组的责任，但是我还是那个弱小的孩子，依然无法保护我所爱的人，依然还要被别人保护着。
+
+我感到一阵迷茫，不知道接下来该怎么办。
+
+于是，我现在坐在这间厕所里，写下了这篇日记。
+
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/vigenere.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/music.html'">下一页 ➡️</button>
+            </div>
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建粒子效果
+        function createParticles() {
+            const container = document.querySelector('.particles-container');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 4 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+
+    </script>
+</body>
+</html>

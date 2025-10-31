@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数字日记 - Digital Diary</title>
+    <title>我的日记</title>
     <style>
         * {
             margin: 0;
@@ -162,10 +162,11 @@
             color: #1565c0;
             font-size: 1.6rem;
             line-height: 2.2;
-            resize: vertical;
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
             cursor: default;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
 
         .diary-content:focus {
@@ -235,24 +236,6 @@
             transform: translateY(0);
         }
 
-        /* 保存成功提示 */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .success-message.show {
-            transform: translateX(0);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -286,51 +269,128 @@
             margin: 20px auto;
             opacity: 0.6;
         }
+
+        strong {
+            font-weight: bold;
+            color: #0d47a1;
+            text-shadow: 0 0 5px rgba(13, 71, 161, 0.3);
+        }
+
+        /* 答案输入框样式 */
+        .answer-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .answer-label {
+            display: block;
+            color: #1565c0;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .answer-input {
+            width: 600px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(33, 150, 243, 0.4);
+            border-radius: 20px;
+            padding: 20px 30px;
+            color: #1565c0;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: rgba(33, 150, 243, 0.8);
+            box-shadow: 0 0 30px rgba(33, 150, 243, 0.4);
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .answer-input::placeholder {
+            color: rgba(21, 101, 192, 0.5);
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
     <!-- 粒子效果 -->
     <div class="particles-container"></div>
     
-    <!-- 成功消息 -->
-    <div class="success-message" id="successMessage">
-        消息提示 ✨
-    </div>
 
     <div class="container">
         <!-- 日记容器 -->
         <div class="diary-container">
             <div class="diary-entry">
-                <textarea class="diary-content" 
-                          readonly
-                          id="diaryContent">我是快乐的小朋友</textarea>
+                <div class="diary-content"
+                     id="diaryContent">2025年3月18日
+
+我现在在飞机上。想起刚才做的事，还觉得有些不可思议。
+
+事情还要从我在昨天的厕所隔间说起。
+
+Niveau已经不在了，不管我再做什么努力，他也回不来了。现在不是消沉的时候，我必须想办法阻止Ekim，阻止Shakespeare的更新。
+
+还有叛徒，从我解开那个‘TRAITOR’的谜题开始，我就对一个人产生了怀疑，这不是我想面对的，而且我现在也没有确凿的证据，但是我认为，那个叛徒应该不会泄露我的行踪，因为我了解他。
+
+当务之急，是要赶在后天Shakespeare更新之前，进入公司的服务器室，给Shakespeare的代码加上一个病毒，让Shakespeare失去更新的能力。
+
+（游戏作者：你为什么不给服务器炸了？日记作者：我不会做炸药 游戏作者：你为什么不给烧了？日记作者：大哥，这层防火！！ 游戏作者：你拿斧子砍？日记作者：别闹！）
+
+我看了看Niveau给我的东西，一张纸条，还有一个工作证，这个工作证上，居然写的是Ekim的名字。我感到十分震惊，但想了想，应该是Niveau和Ekim在屋内打斗时，Niveau趁机从Ekim身上偷过来的。
+
+那张纸条写满了数字，我到现在还不是太明白什么意思。
+
+这时，看着我手里这张Ekim的工作证，又看了看我身上穿的警卫服，一个计划油然而生。
+
+我买了一个胡子贴和一支画笔，把胡子贴上去后，又拿画笔在脸上画了几笔，伪装成几处淤伤，看着和之前看守我的警卫容貌差不多，便趁着夜色再次来到了三阳公司的总部大楼。
+
+三阳公司门口已经划上了警戒线，几个警察在门口拦着。那几个警察看到我，我出示了那个警卫的工作证。警察看了看工作证，又看了看我，跟我说，“你这怎么有点不太像啊。” 我说，“今天tm的被那俩入侵者打晕了，刚去医院上药了，医药费还要我垫，就这晚上还要值夜班，公司还不给我报工伤，也不知道那俩王八蛋被抓着没有，要是抓着了非得让我揍他俩一顿。”我向警察出示了瘀伤，警察看了看我的脸，又看了看工作证，拍了拍我说，“好的，同志辛苦了，快进去吧。”我和他们说，“你们也辛苦了。” 然后我成功混进了大楼。
+
+（游戏作者：这看着太假了，现实中警察绝对不会那么容易让你进的，不过为了剧情发展，就先这样吧。）
+
+我进入了电梯间，根据之前Niveau所说的，11楼和服务器所在的15楼之间有一个隐藏楼梯，我按下了11楼的按钮，电梯缓缓上升。
+
+到了11楼后，我根据之前保安给我的楼层示意图，通过对比别的楼层的布局，终于找到了那个隐藏楼梯的入口。到了隐藏楼梯的入口，我发现需要刷卡，于是我掏出了Ekim的工作证，刷了进去。
+
+经过好长一段楼梯之后，我终于来到了15楼的服务器室门口。
+
+在服务器室的门口出现了一个密码锁，我心想，应该就是早上Ekim说的那个密码锁。
+
+本来11楼的刷卡门禁就可以防住大多数人，我估计Ekim还是为了像今天的意外发生才特意加了这道安全锁。
+
+人，只有灾难发生的时候，才会想起补救措施。
+
+那么，密码究竟是什么来着？
+
+
+<div class="answer-section">
+                <label for="answerInput" class="answer-label">请输入答案（由A,B,C,D,E,F,G组成的一串英文字符）：</label>
+                <input type="text" id="answerInput" class="answer-input" placeholder="">
+</div>
+                </div>
             </div>
 
             <div class="btn-container">
-                <button class="btn" onclick="nextPage()">下一页 ➡️</button>
+                <button class="btn" onclick="window.location.href='https://treasurenumber4.a6c2.top/level.html'">⬅️ 上一页</button>
+                <button class="btn" onclick="checkAnswer()">下一页 ➡️</button>
+            </div>
+        </div>
+    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 页面数据管理
-        let currentPage = 1;
-        let totalPages = 1;
-        let pages = ['']; // 存储每页的内容
-
-        // 显示当前日期
-        function updateDate() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                weekday: 'long'
-            };
-            const dateString = now.toLocaleDateString('zh-CN', options);
-            // 可以在需要时显示日期
-        }
-
         // 创建粒子效果
         function createParticles() {
             const container = document.querySelector('.particles-container');
@@ -347,125 +407,44 @@
             }
         }
 
-        // 保存当前页内容
-        function saveCurrentPage() {
-            const content = document.getElementById('diaryContent').value;
-            pages[currentPage - 1] = content;
-            
-            // 保存到本地存储
-            localStorage.setItem('diaryPages', JSON.stringify(pages));
-            localStorage.setItem('currentPage', currentPage.toString());
-            localStorage.setItem('totalPages', totalPages.toString());
-        }
-
-        // 加载页面内容
-        function loadPage(pageNumber) {
-            if (pageNumber < 1 || pageNumber > totalPages) return;
-            
-            saveCurrentPage(); // 保存当前页
-            currentPage = pageNumber;
-            
-            const content = pages[currentPage - 1] || '';
-            document.getElementById('diaryContent').value = content;
-            
-            updatePageInfo();
-        }
-
-        // 上一页
-        function previousPage() {
-            if (currentPage > 1) {
-                loadPage(currentPage - 1);
-            } else {
-                showMessage('已经是第一页了');
-            }
-        }
-
-        // 下一页
-        function nextPage() {
-            if (currentPage < totalPages) {
-                loadPage(currentPage + 1);
-            } else {
-                // 创建新页面
-                saveCurrentPage();
-                totalPages++;
-                pages.push('');
-                loadPage(totalPages);
-                showMessage('创建了新的一页');
-            }
-        }
-
-        // 更新页面信息
-        function updatePageInfo() {
-            // 可以在这里添加页面指示器
-            console.log(`当前页: ${currentPage}/${totalPages}`);
-        }
-
-        // 显示消息
-        function showMessage(message) {
-            const messageEl = document.getElementById('successMessage');
-            messageEl.textContent = message;
-            messageEl.classList.add('show');
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-            }, 2000);
-        }
-
-        // 从本地存储加载数据
-        function loadFromStorage() {
-            const savedPages = localStorage.getItem('diaryPages');
-            const savedCurrentPage = localStorage.getItem('currentPage');
-            const savedTotalPages = localStorage.getItem('totalPages');
-            
-            if (savedPages) {
-                pages = JSON.parse(savedPages);
-                currentPage = parseInt(savedCurrentPage) || 1;
-                totalPages = parseInt(savedTotalPages) || 1;
-                
-                loadPage(currentPage);
-            }
-        }
-
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            updateDate();
             createParticles();
-            loadFromStorage();
-            updatePageInfo();
-            
-            // 自动保存功能
-            let autoSaveTimer;
-            const contentInput = document.getElementById('diaryContent');
-            
-            function resetAutoSave() {
-                clearTimeout(autoSaveTimer);
-                autoSaveTimer = setTimeout(() => {
-                    saveCurrentPage();
-                    showMessage('已自动保存');
-                }, 10000); // 10秒后自动保存
-            }
-            
-            contentInput.addEventListener('input', resetAutoSave);
         });
 
-        // 键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+右箭头 下一页
-            if (e.ctrlKey && e.key === 'ArrowRight') {
-                e.preventDefault();
-                nextPage();
-            }
-            // Ctrl+S 保存
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveCurrentPage();
-                showMessage('已保存当前页');
-            }
-        });
+        // 从JSON文件加载答案
+        async function loadAnswers() {
+            const response = await fetch('https://treasurenumber4.a6c2.top/answers.json');
+            const data = await response.json();
+            return data.questions;
+        }
 
-        // 页面关闭前保存
-        window.addEventListener('beforeunload', function() {
-            saveCurrentPage();
-        });
+        // 答案验证函数
+        async function checkAnswer() {
+            const answerInput = document.getElementById('answerInput');
+            const userAnswer = answerInput.value.trim();
+            
+            // 从JSON文件加载正确答案
+            const questions = await loadAnswers();
+            const correctAnswer = questions.page2.answer;
+            
+            if (userAnswer === "") {
+                alert("请输入答案后再点击下一页！");
+                answerInput.focus();
+                return;
+            }
+            
+            if (userAnswer == correctAnswer) {
+                // 答案正确，跳转到下一页
+                window.location.href = 'https://treasurenumber4.a6c2.top/numbers.html';
+            } else {
+                // 答案错误，显示提示
+                alert("答案错误，请重新填写！");
+                answerInput.value = "";
+                answerInput.focus();
+            }
+        }
     </script>
+
 </body>
 </html>
